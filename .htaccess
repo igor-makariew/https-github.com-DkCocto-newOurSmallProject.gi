@@ -1,0 +1,38 @@
+## - установка комментариев
+#AddDefaultCharset utf-8
+## - запрет индексирования каталога
+#Options -Indexes
+## - открытие файла без указания расширения
+#Options -MultiViews
+## - переопределяет индексный файл
+##DirectoryIndex index-test.php
+#
+## - страницы ошибок
+##ErrorDocument 403 /htaccess/page403.html
+##ErrorDocument 404 http://localhost/htaccess/page404.html
+#
+## порядок доступа к файлам
+##Order Deny Allow
+##Deny from all
+##Allow
+#
+## - ? - совпадает с любым единичным символом
+## - * - совпадает с любым количеством символом
+#
+Options +FollowSymLinks
+# - позволяет скрывать что угодно
+IndexIgnore */*
+RewriteEngine on
+
+RewriteCond %{REQUEST_URI} !^/(web)
+RewriteRule ^assets/(.*)$ /web/assets/$1 [L]
+RewriteRule ^css/(.*)$ /web/css/$1 [L]
+RewriteRule ^js/(.*)$ web/js/$1 [L]
+RewriteRule ^fonts/(.*)$ web/fonts/$1 [L]
+RewriteRule ^images/(.*)$ web/img/$1 [L]
+RewriteRule ^robots.txt web/robots.txt [L]
+RewriteRule (.*) /web/$1
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /web/index.php
