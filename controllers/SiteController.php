@@ -9,7 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use app\models\User;
+use app\models\Users;
 use yii\widgets\ActiveForm;
 use app\controllers\CustomController;
 
@@ -133,86 +133,58 @@ class SiteController extends Controller
         {
             return $this->redirect('/');
         }
-        $model = new User();
+        $model = new Users();
         
         if(Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) ) {
-//                foreach($model as $key => $models) {
-//                    echo $models.'<br>';
-//                };
-//                die;
-            if($model->validate()) {
-//                foreach($model as $key => $models) {
-//                    echo $models.'<br>';
-//                };
-//                die;
                 $this->password = $model->password;
-                if(!User::find()->where(['email' => $model->email])->limit(1)->all())
+                if(!Users::find()->where(['email' => $model->email])->limit(1)->all())
                 {
-//                    foreach($model as $key => $models) {
-//                    echo $models.'<br>';
-//                    };
-//                     die;
                     $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
                     $model->code = Yii::$app->getSecurity()->generateRandomString(10);
                     $model->active = 0;
                     if($model->save())
                     {
-                        foreach($model as $key => $models) {
-                        echo $models.'<br>';
-                        };
-                         die;
+                        $model->sendConfirmationLink();
                         Yii::$app->session->setFlash('success', 'Загрузка успешна.');
-                        return $this->redirect('/');
+                        return $this->refresh();
                     }
                     else 
                     {
-    //                    Yii::$app->response->format = Response::FORMAT_JSON;
+    
                         Yii::$app->session->setFlash('error', 'Ошибка при загрузке.');
-    //                    return ActiveForm::validate($model);                 
-//                        return $this->redirect('/');
                     }
                 }
                 else {
-                    return $this->redirect('/');
+                    Yii::$app->session->setFlash('error', 'Ошибка при загрузке.');
+                    return $this->refresh();
                 } 
-            }
+         
         }
         return $this->render('form-registration', compact('model'));
     }
     
-    public function actionRegistr()
-    {
-        if(!Yii::$app->user->isGuest)
-        {
-            return $this->redirect('/');
+    public function actionConfirmEmail() {
+        // Если пользователь авторизован, то возврощаем на домашнюю страницу
+        if(!Yii::$app->user->isGuest) {
+            return $this->goHome();
         }
-        // Подключаемся к модели
-        $model = new User();
-        // Если чтото пришло
-      
-        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()))
-        {
-            $this->password = $model->password;
-            if(!User::find()->where(['email'=> $model->email])->limit(1)->all())
-            {
-                $model->password= Yii::$app->security->generatePasswordHash($model->password);
-                $model->code = Yii::$app->getSecurity()->generateRandomString(10);
-                $model->active = 0;
-                if ($model->save())
-                {
-                    return $this->redirect('/');
-                }
-                else
-                {
-                    Yii::$app->response->format = Response::FORMAT_JSON;
-                    return ActiveForm::validate($model);
-                }
-            }
-            else {
-                return $this->redirect('/');
-            }
+        
+        // разбираем ссылку
+        $email = htmlspecialchars(Yii::$app->request->get('email'));
+        $code = htmlspecialchars(Yii::$app->request->get('code'));
+        
+        // Ищим пользователя с таким E-mail и code
+        $model = Users::find()->where(['email' => $email, 'code' => $code])->one();
+        // Если нашли
+        if($model->id) {
+            $model->code = '';
+            $model->active = Users::ACTIVE_USER;
+            $model->save();
+            Yii::$app->session->setFlash('success', "Ваш E-mail потверждён.");
+            return $this->redirect('/login');
+        } else {
+            return $this->goHome();
         }
-        return $this->renderAjax('_form_registr', compact('model'));
     }
     
     public function actionDownload($name = NULL)

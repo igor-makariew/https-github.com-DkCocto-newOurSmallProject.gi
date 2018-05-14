@@ -16,6 +16,9 @@ $config = [
 //        '@npm'   => '@vendor/npm-asset',
 //    ],
     'components' => [
+        'mailler' => [
+            'class' => 'yii\swiftmailer\Mailer',
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'oiwj dgoaejkrigoje0934itbmi34tnb340ntb34erfg',
@@ -33,10 +36,19 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
+            
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.yandex.ru', // посмотреть настройки на яндекс
+                'username' => 'www.disigner@yandex.ru',
+                'password' => 'www.dsgnr.03.03.2017',
+                'port' => 465,
+                'encryption' => 'ssl',
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
