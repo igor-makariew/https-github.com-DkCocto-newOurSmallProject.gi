@@ -161,14 +161,14 @@ a:hover {
 .menu ul li:hover ul{display:block;}эта строчка реализует механизм выпадения
         .menu ul li ul li{
                 float:none;
-                width:100%;
+                width:110%;
         }
 .menu ul li ul li a{
         display:block;
         text-transform:none;
         height:auto;
         padding:7px 25px;
-        width:170px;
+        width:100%;
         box-sizing:border-box;
         border-top:1px solid #ffffff;
 }
@@ -191,6 +191,9 @@ a:hover {
 }
 .form-group-form {
     float: right;
+}
+.form-group-center {
+    text-align: center;
 }
 .form-group-form button {
     background-color: #6D9C91;

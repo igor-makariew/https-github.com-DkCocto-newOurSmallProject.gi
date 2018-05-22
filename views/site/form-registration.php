@@ -9,7 +9,7 @@ $this->title = 'Registration';
 $this->params['breadcrumbs'][] = $this->title;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\User */
+/* @var $model app\models\Users */
 /* @var $form ActiveForm */
 ?>
 
@@ -17,11 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-lg-form">
         <?php if(Yii::$app->session->hasFlash('success')): ?>
             <div class="alert alert-success" role="alert">
-                <?= $model->password; ?>
-                <?= $model->username; ?>
-                <?= $model->email; ?>
-                <?= $model->code; ?>
-                <?= Yii::$app->session->getFlash('success')?>
+                 <?= Yii::$app->session->getFlash('success')?>
             </div>
         <?php endif; ?>
         <?php if(Yii::$app->session->hasFlash('error')): ?>
@@ -29,13 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Yii::$app->session->getFlash('error')?>
             </div>
         <?php endif; ?>
-    <?php $form = ActiveForm::begin(['id' => 'user']
-//            'id' => 'form-registration',
-//            'enableAjaxValidation' => true,
-            ); ?>
+    <?php $form = ActiveForm::begin([//'id' => 'users ']
+            'id' => 'form-registration',
+            'enableAjaxValidation' => false,
+            ]); ?>
 
         <?= $form->field($model, 'email')->input('email') ?>
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]); ?>
+        <?= $form->field($model, 'username')->textInput(['autofocus' => false]); ?>
         <?= $form->field($model, 'password')->textInput(['type' => 'password']) ?>
         
         <div class="form-group-form">

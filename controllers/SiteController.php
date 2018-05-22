@@ -10,9 +10,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Users;
-use yii\widgets\ActiveForm;
 use app\controllers\CustomController;
-
+use yii\widgets\ActiveForm;
 
 
 class SiteController extends Controller
@@ -86,11 +85,16 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->view->title = 'Login';
+        $this->layout = 'page';
+        
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
-        $model = new LoginForm();
+        $model = new Users();
+        $model->scenario = 'login';
+        
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }
@@ -106,6 +110,8 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
+        $this->view->title = 'Loguot';
+        $this->layout = 'page';
         Yii::$app->user->logout();
 
         return $this->goHome();
@@ -133,7 +139,9 @@ class SiteController extends Controller
         {
             return $this->redirect('/');
         }
+        
         $model = new Users();
+        $model->scenario = 'form-registration';
         
         if(Yii::$app->request->isPost && $model->load(Yii::$app->request->post()) ) {
                 $this->password = $model->password;
@@ -151,11 +159,11 @@ class SiteController extends Controller
                     else 
                     {
     
-                        Yii::$app->session->setFlash('error', 'Ошибка при загрузке.');
+                        Yii::$app->session->setFlash('error', 'Ошибка при загрузке данных.');
                     }
                 }
                 else {
-                    Yii::$app->session->setFlash('error', 'Ошибка при загрузке.');
+                    Yii::$app->session->setFlash('error', 'Такой E-mail уже существует.');
                     return $this->refresh();
                 } 
          
@@ -174,15 +182,20 @@ class SiteController extends Controller
         $code = htmlspecialchars(Yii::$app->request->get('code'));
         
         // Ищим пользователя с таким E-mail и code
-        $model = Users::find()->where(['email' => $email, 'code' => $code])->one();
+        $model = Users::find()->where(['email' =>$email, 'code' =>$code])->one();
+//        CustomController::printr($model);
+//        return render('confirm-email', compact('email', 'code'));
+        die;
         // Если нашли
         if($model->id) {
             $model->code = '';
             $model->active = Users::ACTIVE_USER;
             $model->save();
+            $model->login();
             Yii::$app->session->setFlash('success', "Ваш E-mail потверждён.");
             return $this->redirect('/login');
         } else {
+            //Yii::$app->session->setFlash('error', "Такого  E-mail нет.");
             return $this->goHome();
         }
     }
@@ -210,6 +223,7 @@ class SiteController extends Controller
         $this->layout = 'page';
         $this->view->title = 'Busness Offers';
         $model = new ContactForm();
+        CustomController::printr($model);
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
 
