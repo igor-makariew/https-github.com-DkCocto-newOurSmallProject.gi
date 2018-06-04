@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Yii::$app->session->getFlash('error')?>
             </div>
         <?php endif; ?>
-    <?php $form = ActiveForm::begin([//'id' => 'users ']
+    <?php $form = ActiveForm::begin([
             'id' => 'form-registration',
             'enableAjaxValidation' => false,
             ]); ?>

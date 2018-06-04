@@ -37,7 +37,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'logout' => ['get','post'],
                 ],
             ],
         ];
@@ -89,7 +89,9 @@ class SiteController extends Controller
         $this->layout = 'page';
         
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->render('login', [
+            'model' => $model,
+        ]);
         }
 
         $model = new Users();
@@ -112,6 +114,7 @@ class SiteController extends Controller
     {
         $this->view->title = 'Loguot';
         $this->layout = 'page';
+        
         Yii::$app->user->logout();
 
         return $this->goHome();
@@ -152,8 +155,13 @@ class SiteController extends Controller
                     $model->active = 0;
                     if($model->save())
                     {
+                        //Назночаем Роль пользователя
+                        $auth = Yii::$app->authManager;
+                        $authorRole = $auth->getRole('users');
+                        $auth->assign($authorRole, $model->id);
+                        // Отправляем письмо с потверждением E-mail 
                         $model->sendConfirmationLink();
-                        Yii::$app->session->setFlash('success', 'Загрузка успешна.');
+                        Yii::$app->session->setFlash('success', 'Выслана ссылка для потверждения Вашей почты.');
                         return $this->refresh();
                     }
                     else 
@@ -204,6 +212,7 @@ class SiteController extends Controller
     {
         $this->layout = 'page';
         $this->view->title = 'Download';
+        
         if($name == NULL):
             return $this->render('download');
         elseif ($name):            
@@ -222,6 +231,7 @@ class SiteController extends Controller
     {
         $this->layout = 'page';
         $this->view->title = 'Busness Offers';
+        
         $model = new ContactForm();
         CustomController::printr($model);
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
@@ -257,6 +267,7 @@ class SiteController extends Controller
     {
         $this->layout = 'page';
         $this->view->title = 'Features Info';
+        
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
 //            return $this->render('login');
@@ -281,6 +292,7 @@ class SiteController extends Controller
     {
         $this->layout = 'page';
         $this->view->title = 'Php Modules List';
+        
         return $this->render('php-modules-list');
         
     }
@@ -294,6 +306,7 @@ class SiteController extends Controller
     {
         $this->layout = 'page';
         $this->view->title = 'Server Modules List';
+        
         return $this->render('server-modules-list');
         
     }
@@ -307,6 +320,7 @@ class SiteController extends Controller
     {
         $this->layout = 'page';
         $this->view->title = 'Scheduler';
+        
         return $this->render('scheduler');
         
     }
@@ -320,6 +334,7 @@ class SiteController extends Controller
     {
         $this->layout = 'page';
         $this->view->title = 'Ksweb Control';
+        
         return $this->render('ksweb-control');
         
     }
@@ -333,6 +348,7 @@ class SiteController extends Controller
     {
         $this->layout = 'page';
         $this->view->title = 'Contact';
+        
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');

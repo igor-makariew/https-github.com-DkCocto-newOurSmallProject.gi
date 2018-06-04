@@ -11,10 +11,16 @@ $config = [
     'charset' => 'utf-8', 
     'layout' => 'main',
     'defaultRoute' => 'site/index',
-//    'aliases' => [
+    'aliases' => [
 //        '@bower' => '@vendor/bower-asset',
-//        '@npm'   => '@vendor/npm-asset',
-//    ],
+        '@npm'   => '@vendor/npm-asset',
+    ],
+    'modules' => [
+        'admin' => [
+            'layout' => '__main',
+            'class' => 'app\modules\admin\Module',
+        ],
+    ],
     'components' => [
         'mailler' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -24,11 +30,14 @@ $config = [
             'cookieValidationKey' => 'oiwj dgoaejkrigoje0934itbmi34tnb340ntb34erfg',
             'baseUrl' => '',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\Users',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
@@ -64,6 +73,7 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'baseUrl' => 'http://ksweb.local',
             'rules' => [
                  '<action:[\w\-]+>' => 'site/<action>',
             ],

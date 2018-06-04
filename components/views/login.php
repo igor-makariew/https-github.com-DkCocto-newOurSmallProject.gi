@@ -18,7 +18,7 @@ use yii\bootstrap\ActiveForm;
     <p>Please fill out the following fields to login: 111</p>
 
     <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
+//        'id' => 'login-form',
         'action' => '/site/login', 
         ]); ?>
 
@@ -44,5 +44,5 @@ use yii\bootstrap\ActiveForm;
 
 <?php else:?>
 <?= $model->username; ?>
-<?= Html::a('Выйти', Url::to(['site/logout']))?>
+<?= Html::a('Выйти', Url::to(['/site/logout']))?>
 <?php endif; ?>

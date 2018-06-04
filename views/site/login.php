@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <p>Please fill out the following fields to login:</p>
 
         <?php $form = ActiveForm::begin([
-            'id' => 'login-form',
+//            'id' => 'login-form',
             'layout' => 'horizontal',
             'action' => '/site/login',
             ]); ?>
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 <?php else:?>
     <?= $model->username; ?>
-    <?= Html::a('Выйти', Url::to(['/site/logout']))?>
+    <?= Html::a('Выйти', Url::to(['site/logout']))?>
 <?php endif; ?>
 
 <div class="center-block"><?= LoginWidget::widget(); ?><div>
