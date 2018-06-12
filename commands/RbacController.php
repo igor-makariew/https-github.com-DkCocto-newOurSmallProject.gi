@@ -39,7 +39,7 @@ class RbacController extends Controller {
         $viewAdminPage->description = 'Просмотр админки';
         
         $editUser = $auth->createPermission('editUser');
-        $editUser->description = 'Редоктирование пользователя';
+        $editUser->description = 'Редактирование пользователя';
         
         $addNews = $auth->createPermission('addNews');
         $addNews->description = 'Добавление новостей';

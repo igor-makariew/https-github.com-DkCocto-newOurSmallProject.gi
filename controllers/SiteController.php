@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Users;
+use app\models\Category;
 use app\controllers\CustomController;
 use yii\widgets\ActiveForm;
 
@@ -213,11 +214,14 @@ class SiteController extends Controller
         $this->layout = 'page';
         $this->view->title = 'Download';
         
+//        $model = new Category;
+        $model = Category::find()->all();
+        
         if($name == NULL):
-            return $this->render('download');
+            return $this->render('download', compact('model'));
         elseif ($name):            
             $files = Yii::$app->response->sendFile($this->path . $name, null,  ['mimeType' => 'application/pdf']);
-            return $this->render('download', compact('files'));
+            return $this->render('download', compact('files', 'model'));
         endif;
     }
     

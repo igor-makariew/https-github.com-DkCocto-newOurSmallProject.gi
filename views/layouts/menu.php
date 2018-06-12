@@ -11,7 +11,7 @@ use yii\helpers\Url;
 					<div class="container-fluid">
 						<div class="navbar-header">
 							<div class="navbar-brand">
-                                                            <h1><?= Html::a('KSWEB', Url::to(['site/index']))?><br /><br /></h1>
+                                                            <h1><?= Html::a('KSWEB', Url::to(['/']))?><br /><br /></h1>
 <!--                                                            <br>-->
                                                             <h3>A Developer`s Suite For Android Platform</h3>
                                                             <h4><?= Html::a('Регистрация', Url::to(['site/form-registration']))?> </h4>

@@ -32,6 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?= Html::a('Schedule! v1.01', Url::to(['site/download', 'name'=>'9.docx']))?>
                             <br />
                             
+            <?php foreach ($model as $category) : ?>
+                <li class="current"><a href="<?= Url::to(['/category/view', 'id' => $category->id]) ?>"><?= $category->title ?></a></li>
+            <?php endforeach; ?>
+                            
 				<div class="col-md-6">
                                         <?= Html::img('/web/img/4.jpg', ['class' => 'img-responsive'])?>
 					<!-- <img src="img/4.jpg" class="img-responsive"alt="" /> -->
@@ -98,6 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			<h4>Example on 3 Columns ( use col-md-4)</h4>
 		</div>
 		
+    
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4">

@@ -18,13 +18,13 @@
         "yiisoft/yii2": "~2.0.5",
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
-        "timurmelnikov/yii2-panel-menu": "*"
+        "timurmelnikov/yii2-panel-menu": "*",
+        "costa-rico/yii2-images": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
         "yiisoft/yii2-gii": "~2.0.0",
         "yiisoft/yii2-faker": "~2.0.0",
-
         "codeception/base": "^2.2.3",
         "codeception/verify": "~0.3.1",
         "codeception/specify": "~0.4.3"
@@ -43,6 +43,10 @@
         ]
     },
     "extra": {
+        "asset-installer-paths": {
+        "npm-asset-library": "vendor/npm",
+        "bower-asset-library": "vendor/bower"
+        },
         "yii\\composer\\Installer::postCreateProject": {
             "setPermission": [
                 {
@@ -54,12 +58,6 @@
             "generateCookieValidationKey": [
                 "config/web.php"
             ]
-        }
-    },
-    "extra": {
-    "asset-installer-paths": {
-        "npm-asset-library": "vendor/npm",
-        "bower-asset-library": "vendor/bower"
         }
     },
     "repositories": [

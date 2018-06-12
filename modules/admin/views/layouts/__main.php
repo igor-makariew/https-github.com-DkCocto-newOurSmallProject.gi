@@ -63,18 +63,51 @@ AppAssetAdmin::register($this);
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        
-        <?= PanelMenu::widget(['items' => [
-                ['label' => 'Пункт меню1', 'url' => ['#']],
-                ['label' => 'Пункт меню2', 'url' => ['#']],
-                ['label' => 'Пункт меню3', 'url' => ['#']],
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <?= PanelMenu::widget(['items' => [
+                ['label' => 'Категории', 'url' => ['/admin/category']],
+                ['label' => 'Уроки', 'url' => ['/admin/lesson']],
+                ['label' => 'Обновления', 'url' => ['/admin/update']],
             ],
-            'heading' => 'Текст заголовка...',
-            'type' => 'panel-danger',
-            'footer' => 'Текст подвала...'
+            'heading' => 'Меню',
+            'type' => 'panel-default',
+//            'footer' => 'Текст подвала...'
         ]); ?>
-        
-        <?= $content ?>
+            </div>
+            <div class="col-md-8">
+                <?php if( Yii::$app->session->hasFlash('success') ):?>
+
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <?php echo Yii::$app->session->getFlash('success'); ?>
+                    </div>
+
+
+                <?php endif; ?>
+
+                <?php if( Yii::$app->session->hasFlash('info') ):?>
+
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <?php echo Yii::$app->session->getFlash('info'); ?>
+                    </div>
+
+
+                <?php endif; ?>
+
+                <!-- вывод сообщения об ошибки-->
+                <?php if( Yii::$app->session->hasFlash('error') ):?>
+
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <?php echo Yii::$app->session->getFlash('error'); ?>
+                    </div>
+
+                <?php endif; ?>
+                <?= $content ?>
+            </div>
+        </div>   
     </div>
 </div>
 
