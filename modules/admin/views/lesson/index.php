@@ -60,9 +60,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         'class' => 'label btn-primary',
                         'title' => 'Редактировать',
                         'area-label' => 'Редактировать',
-                        'data' => [
-                            'method' => 'post',
-                            ],
+//                        'data' => [
+//                            'method' => 'post',
+//                            ],
                     ]);
                 },
                         

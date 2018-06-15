@@ -12,8 +12,8 @@ $promt = ['prompt' => 'Выберете категорию урока'];
 <div class="lesson-form">
 
     <?php $form = ActiveForm::begin([
-        'method' => 'post',
-        'action' => 'lesson/',
+//        'method' => 'post',
+//        'action' => '/admin/lesson/create',
     ]); ?>
 
     <?= $form->field($model, 'idCategory')->dropDownList($category, $promt) ?>

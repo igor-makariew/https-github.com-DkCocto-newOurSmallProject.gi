@@ -19,7 +19,7 @@ use Yii;
  */
 class Lesson extends \yii\db\ActiveRecord
 {
-    public $image;
+//    public $image;
     
     public function behaviors()
     {
@@ -78,7 +78,7 @@ class Lesson extends \yii\db\ActiveRecord
             $path = 'img/store/'.$this->image->baseName.'.'.$this->image->extension;
             $this->image->saveAs($path);
 //            $this->image->attachImage($path, true); // не могу найти описание метода
-//            @unlink($path);
+            @unlink($path);
             return true;
         }
         else {

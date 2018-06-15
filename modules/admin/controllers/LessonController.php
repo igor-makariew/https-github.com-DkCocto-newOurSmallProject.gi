@@ -73,20 +73,19 @@ class LessonController extends Controller
 
         $cat = Category::find()->all();
         $category = ArrayHelper::map($cat, 'id', 'title');
-        if ($model->load(Yii::$app->request->post(), $model['lesson']) && $model->save()) {
-            return 'ошибка 2';
-            //$model->image = UploadedFile::getInstance($model, 'image');
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->image = UploadedFile::getInstance($model, 'image');
             if($model->image) {
                 $model->upload();
-            }
+         
             return $this->redirect(['view', 'id' => $model->id]);
         }
+        }
         else {
-            return 'ошибка 1';
-//        return $this->render('create', [
-//            'model' => $model,
-//            'category' => $category,
-//            ]);
+            return $this->render('create', [
+                'model' => $model,
+                'category' => $category,
+            ]);
         }
     }    
     
@@ -103,20 +102,19 @@ class LessonController extends Controller
 
         $cat = Category::find()->all();
         $category = ArrayHelper::map($cat, 'id', 'title');
-        if ($model->load(Yii::$app->request->post(), $model['lesson']) && $model->save()) {
-            return 'ошибка 2';
-//            $model->image = UploadedFile::getInstance($model, 'image');
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->image = UploadedFile::getInstance($model, 'image');
+//            return var_dump($model->image);
             if($model->image) {
                 $model->upload();
             }
             return $this->redirect(['view', 'id' => $model->id]);
         }
         else {
-//        return $this->render('update', [
-//            'model' => $model,
-//            'category' => $category,
-//        ]);
-        return print_r(Yii::$app->request->post());
+            return $this->render('update', [
+                'model' => $model,
+                'category' => $category,
+            ]);
         }
     }
         

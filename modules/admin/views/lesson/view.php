@@ -32,9 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'image',
                 'value' => function ($data) {
                     $image = $data->getImage();                    
-                    foreach ($data as $value) {
-                        echo $value . '<br />';
-                    };
+//                    foreach ($data as $value) {
+//                        echo $value . '<br />';
+//                    };
 //                    return Html::img($image->getUrl('100x100'));
                 },
                 'format' => 'html',
