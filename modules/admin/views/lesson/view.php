@@ -31,11 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'image',
                 'value' => function ($data) {
-                    $image = $data->getImage();                    
-//                    foreach ($data as $value) {
-//                        echo $value . '<br />';
-//                    };
-//                    return Html::img($image->getUrl('100x100'));
+                    $image = $data->getImage(); 
+                    return Html::img($image->getUrl('100x100'), ['alt' => 'фото']);
                 },
                 'format' => 'html',
             ],

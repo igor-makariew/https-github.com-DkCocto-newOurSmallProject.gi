@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\admin\models;
+namespace app\models;
 
 use Yii;
 
@@ -19,8 +19,6 @@ use Yii;
  */
 class Lesson extends \yii\db\ActiveRecord
 {
-    public $image;
-    public $gallery;
     
     public function behaviors()
     {
@@ -30,16 +28,14 @@ class Lesson extends \yii\db\ActiveRecord
             ]
         ];
     }
+    
+    
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return 'lesson';
-    }
-    
-    public function getCategory() {
-        return $this->hasOne(Category::className(), ['id' => 'idCategory']);
     }
 
     /**
@@ -52,8 +48,6 @@ class Lesson extends \yii\db\ActiveRecord
             [['idCategory', 'lesson', 'views'], 'integer'],
             [['text', 'video'], 'string'],
             [['title', 'keywords', 'description'], 'string', 'max' => 255],
-            [['image'], 'file', 'extensions' => 'png, jpg'],
-            [['gallery'], 'file', 'extensions' => 'png, jpg', 'maxFiles' => 4],
         ];
     }
 
@@ -73,32 +67,5 @@ class Lesson extends \yii\db\ActiveRecord
             'views' => 'Количество просмотров',
             'image' => 'Слайд',
         ];
-    }
-    
-    // Две вспомогательные функции для сохранения всего и сразу. Смотри контроллер Create - используются там.
- public function upload(){
-        if($this->validate()){
-            $path = 'img/store/' . $this->image->baseName . '.' . $this->image->extension;
-            $this->image->saveAs($path);
-            $this->attachImage($path, true);
-            @unlink($path);
-            return true;
-        }else{
-            return false;
-        }
-    }
- 
-    public function uploadGallery(){ // сохраняет целиком галерею
-        if($this->validate()){
-            foreach($this->gallery as $file){
-                $path = 'img/store/' . $file->baseName . '.' . $file->extension;
-                $file->saveAs($path);
-                $this->attachImage($path);
-                @unlink($path);
-            }
-            return true;
-        }else{
-            return false;
-        }
     }
 }

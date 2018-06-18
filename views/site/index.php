@@ -3,18 +3,22 @@
 /* @var $this yii\web\View */
 
 //$this->title = 'My Yii Application';
+
+use yii\helpers\Html;
+use yii\helpers\Url;
 ?>
 
 <div class="content">
-			<h2><span>Nam libero tempore cum solutanobis est eligendi optio cumque</span></h2>
-			<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis 
-			praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias 
-			excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
-			soluta nobis est eligendi optio cumque nihil impedit quo minus id </p>
+			<h2><span>Now with Apache server and the text editor with code highlighting!</span></h2>
+			<p>Do you want to have a platform for running sites on PHP in any convenient place? It’s possible! 
+                            It is enough to install KSWEB on your Android device and copy scripts to the htdocs folder on the memory card. After that, you can run your web content! 
+                            So, KSWEB is a set for web developer for the Android platform. The package consists of: web server, FTP server, PHP programming language, 
+                            MySQL DBMS and scheduler. KSWEB does not need root rights for proper functioning, unless, of course, you want to use the server on port 80. 
+                            By the way, it can be convenient when opening your server on the Internet. This will allow you to have a small hosting in your pocket! </p>
 		</div>
-<div class="breadcrumb">
+<!--<div class="breadcrumb">
         <h4>Recent Works</h4>
-</div>
+</div>-->
 
 <div class="container">
 		<div class="row">
@@ -24,8 +28,9 @@
 						<div class="align-center">
 							<h4>Quick Support</h4>					
 							<div class="icon">
-								<i class="fa fa-heart-o fa-3x"></i>
-							</div>
+<!--								<i class="fa fa-heart-o fa-3x"></i>-->
+                                                                <?= Html::img('../../web/img/ksweb/screen11.png', ['alt' => 'screen11'])?>
+                                                            </div>
 							<p>
 							 Voluptatem accusantium doloremque laudantium sprea totam rem aperiam.
 							</p>
@@ -40,7 +45,8 @@
 						<div class="align-center">
 							<h4>Web Design</h4>				
 							<div class="icon">
-								<i class="fa fa-desktop fa-3x"></i>
+<!--								<i class="fa fa-desktop fa-3x"></i>-->
+                                                                <?= Html::img('../../web/img/ksweb/screen11.png', ['alt' => 'screen11'])?>
 							</div>
 							<p>
 							 Voluptatem accusantium doloremque laudantium sprea totam rem aperiam.
@@ -56,7 +62,8 @@
 						<div class="align-center">
 							<h4>Easy Customize</h4>					
 							<div class="icon">
-								<i class="fa fa-location-arrow fa-3x"></i>
+<!--								<i class="fa fa-location-arrow fa-3x"></i>-->
+                                                                <?= Html::img('../../web/img/ksweb/screen11.png', ['alt' => 'screen11'])?>
 							</div>
 							<p>
 							 Voluptatem accusantium doloremque laudantium sprea totam rem aperiam.

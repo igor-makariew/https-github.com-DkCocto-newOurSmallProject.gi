@@ -25,7 +25,7 @@ use yii\helpers\Url;
                                                                 <li role="presentation"><?= Html::a('Buy A Serial Key', Url::to(['site/buy-a-serial-key']))?></li>
                                                                 <li role="presentation"><?= Html::a('Features Info', Url::to(['site/features-info']))?>
                                                                         <ul class="nav-tabs-li" role="tablist">
-                                                                        <li role="presentation"><?= Html::a('PHP MODULES LIST', Url::to(['site/php-modules_list']))?></li>
+                                                                        <li role="presentation"><?= Html::a('PHP MODULES LIST', Url::to(['site/php-modules-list']))?></li>
                                                                         <li role="presentation"><?= Html::a('SERVER MODULES LIST', Url::to(['site/server-modules-list']))?></li>
                                                                         <li role="presentation"><?= Html::a('SCHEDULER', Url::to(['site/scheduler']))?></li>
                                                                         <li role="presentation"><?= Html::a('KSWEB CONTROL', Url::to(['site/ksweb-control']))?></li>

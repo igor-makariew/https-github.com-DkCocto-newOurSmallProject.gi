@@ -13,9 +13,11 @@ use app\models\Users;
 use app\models\Category;
 use app\controllers\CustomController;
 use yii\widgets\ActiveForm;
+use app\models\Lesson;
+use yii\data\ActiveDataProvider;
 
 
-class SiteController extends Controller
+class SiteController extends CustomController
 {
     public $password;
     /**
@@ -76,6 +78,8 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $this->view->title = 'Главная';
+        
+        
         return $this->render('index');
     }
 
@@ -297,7 +301,17 @@ class SiteController extends Controller
         $this->layout = 'page';
         $this->view->title = 'Php Modules List';
         
-        return $this->render('php-modules-list');
+        $query = Lesson::find();
+        $query->orderBy('id DESC');
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+        
+        return $this->render('php-modules-list', compact('dataProvider'));
         
     }
     

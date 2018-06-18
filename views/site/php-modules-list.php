@@ -7,10 +7,20 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
+use yii\widgets\ListView;
 
 $this->title = 'Php Modules List';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<div class="row">
+    <?= ListView::widget([
+        'dataProvider' => $dataProvider,
+        'itemView' => '_list',
+        'layout' => "{items}\n{pager}",
+        /*'summary' => '<div class="right-align">Кол-во уроков: {totalCount}</div>',*/
+    ]); ?>
+</div>
     <div class="site-contact">
         
         <div class="content">

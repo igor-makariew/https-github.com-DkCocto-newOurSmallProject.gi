@@ -104,7 +104,7 @@ class LessonController extends Controller
         $category = ArrayHelper::map($cat, 'id', 'title');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->image = UploadedFile::getInstance($model, 'image');
-//            return var_dump($model->image);
+
             if($model->image) {
                 $model->upload();
             }

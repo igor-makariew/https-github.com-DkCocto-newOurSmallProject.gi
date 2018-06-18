@@ -20,7 +20,7 @@ class CustomController extends Controller {
     public static function printr($value) {
         if($value) {
             echo '<pre>';
-            print_r($value);
+             var_dump($value);
             echo '</pre>';
         } else {
             echo 'ERROR';
