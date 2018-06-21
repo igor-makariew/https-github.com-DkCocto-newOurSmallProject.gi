@@ -26,8 +26,18 @@ class CategoryController extends CustomController {
         $categoryId = (int)Yii::$app->request->get('id');
         $category = Category::findOne($categoryId);
 //      
-        CustomController::printr($category);
-//        return $this->render('view');
+        $query = Lesson::find();
+        $query->where(['idCategory' => $categoryId]);
+        $query->orderBy('id ASC');
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+        
+        return $this->render('view', compact('dataProvider'));
     }
     
 }

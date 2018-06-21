@@ -30,6 +30,15 @@ $config = [
 //            'placeHolderPath' => '@webroot/images/placeHolder.png', // if you want to get placeholder when image not exists, string will be processed by Yii::getAlias
 //            'imageCompressionQuality' => 100, // Optional. Default value is 85.
         ],
+        'debug' => [ // панель на хостинге 
+            'class' => 'yii\debug\Module', //
+            'allowedIPs' => ['127.0.0.1', '::1'], //
+            'panels' => [
+                'httpclient' => [
+                    'class' => 'yii\\httpclient\\debug\\HttpClientPanel',
+                ],
+            ],
+        ],
     ],
     'components' => [
         'mailler' => [
@@ -101,7 +110,8 @@ if (YII_ENV_DEV) {
         // uncomment the following to add your IP if you are not connecting from localhost.
         'allowedIPs' => ['*'], // Подключение Gii 
     ];
-
+    $config['modules']['debug']['allowedIPs'] = ['*', '::1'];
+    
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',

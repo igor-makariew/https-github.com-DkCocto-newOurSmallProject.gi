@@ -6,13 +6,11 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\widgets\Breadcrumbs;
 use yii\widgets\ListView;
 
 $this->title = 'Php Modules List';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
 <div class="row">
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
@@ -21,8 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
         /*'summary' => '<div class="right-align">Кол-во уроков: {totalCount}</div>',*/
     ]); ?>
 </div>
-    <div class="site-contact">
-        
+
+<!--    <div class="site-contact">
         <div class="content">
             <h3>PHP modules list</h3>
             
@@ -87,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="content">
             <p>On purchasing of licenses, please, contact us <?= Html::a('dkcocto@gmail.com.', Url::to(['dkcocto@gmail.com', 'subject' => 'KSWEB License'])) ?><p>
-        </div>
+        </div>-->
 
         
 
