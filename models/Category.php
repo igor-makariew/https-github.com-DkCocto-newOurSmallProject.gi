@@ -21,6 +21,10 @@ class Category extends \yii\db\ActiveRecord
     {
         return 'category';
     }
+    
+    public function getLesson(){
+        return $this->hasMany(Lesson::className(), ['idCategory' => 'id']);
+    }
 
     /**
      * {@inheritdoc}

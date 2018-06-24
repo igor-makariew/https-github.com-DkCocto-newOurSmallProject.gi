@@ -4,12 +4,17 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 ?>
+
+<?= 
+//    $this->title = 'Server Modules List';
+    $this->params['breadcrumbs'][] = $this->title;
+?> 
 <article class="box post post-excerpt">
     <div class="content">
     
         <div class="row">
             <header>
-                <h2><?= Html::a($model->title, Url::to(['category/php-modules-list', 'id' => $model->id]))?></h2>
+                <h2><?= Html::a($model->title, Url::to(['category/view', 'id' => $model->id]))?></h2>
                     <p>A free, fully responsive HTML5 site template by HTML5 UP</p>
             </header>
 

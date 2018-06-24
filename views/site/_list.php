@@ -9,7 +9,7 @@ use yii\helpers\Url;
     
         <div class="row">
             <header>
-                <h2><?= Html::a($model->title, Url::to(['category/php-modules-list', 'id' => $model->id]))?></h2>
+                <h2><?= Html::a($model->title, Url::to(['category/view', 'lesson' => $model->id]))?></h2>
                     <p>A free, fully responsive HTML5 site template by HTML5 UP</p>
             </header>
 

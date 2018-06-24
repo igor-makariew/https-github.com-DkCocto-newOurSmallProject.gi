@@ -26,8 +26,6 @@ $promt = ['prompt' => 'Выберете категорию урока'];
 
     <?= $form->field($model, 'lesson')->textInput() ?>
 
-    <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
-    
     <?=  $form->field($model, 'text')->widget(CKEditor::className(),[
         'editorOptions' => [
             'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать

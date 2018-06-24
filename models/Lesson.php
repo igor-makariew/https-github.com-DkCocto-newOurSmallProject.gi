@@ -37,6 +37,10 @@ class Lesson extends \yii\db\ActiveRecord
     {
         return 'lesson';
     }
+    
+    public function getCategory(){
+        return $this->hasOne(Category::className(), ['id' => 'idCategory']);
+    }
 
     /**
      * {@inheritdoc}

@@ -13,6 +13,11 @@ use app\models\Lesson;
 use yii\data\ActiveDataProvider;
 use app\models\Category;
 use Yii;
+use yii\web\NotFoundHttpException;
+use app\models\Comment;
+use app\models\Users;
+
+
 
 /**
  * Description of CategoryController
@@ -21,23 +26,78 @@ use Yii;
  */
 class CategoryController extends CustomController {
     //put your code here
-    public function actionPhpModulesList () {
+    public function actionView () {
         
-        $categoryId = (int)Yii::$app->request->get('id');
-        $category = Category::findOne($categoryId);
-//      
-        $query = Lesson::find();
-        $query->where(['idCategory' => $categoryId]);
-        $query->orderBy('id ASC');
+        $lesson = (int)Yii::$app->request->get('lesson');
         
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-        ]);
+        $model = Lesson::findOne($lesson);
+       
+        if(!$model) {
+            throw new NotFoundHttpException('Запрошенный урок не создан.');
+        }
+        $model->views += 1;
+        $model->save();
         
-        return $this->render('view', compact('dataProvider'));
+        $comments = Comment::find()->where(['id_lesson' => $lesson])->indexBy('id')->asArray()->all();
+        
+        $tree = [];
+        
+        foreach($comments as $id=>&$node) {
+            if(!$node['parent_id']) {
+                $tree[$id] = &$node;
+            } else {
+                $comments[$node['parent_id']]['childs'][$node['id']] =  &$node;
+            }
+        }
+        
+        $comment = new Comment();
+//        var_dump(Yii::$app->request->post());
+//        var_dump($comment->errors);
+//        exit();
+        if ($comment->load(Yii::$app->request->post()))
+        {
+            $user = Users::findOne(Yii::$app->user->id);
+
+            $comment->id_lesson = $lesson;
+            $comment->username = $user->username;
+//            $comment->parent_id = (int)$comment->parent_id;
+
+            /**
+             * Проверка на взлом БД
+             */
+
+            $les = Comment::find()->where(['parent_id' => $comment->parent_id])->all();
+            if (!$les)
+            {
+                throw new NotFoundHttpException('Такого комментария нет.');
+            }
+            else
+            {
+                $comment->save();
+            }
+
+            return $this->redirect(['view', 'lesson' => $lesson]);
+        }
+        else
+        {
+            return $this->render('view', compact('model', 'category', 'tree', 'comment'));
+        }
+        
+//        пагинация и сортировка
+//        
+//        $category = Category::findOne($categoryId);
+////      
+//        $query = Lesson::find();
+//        $query->where(['idCategory' => $categoryId]);
+//        $query->orderBy('id ASC');
+//        
+//        $dataProvider = new ActiveDataProvider([
+//            'query' => $query,
+//            'pagination' => [
+//                'pageSize' => 10,
+//            ],
+//        ]);
+//        
+//        return $this->render('view', compact('dataProvider'));
     }
-    
 }
