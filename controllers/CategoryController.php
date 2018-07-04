@@ -51,22 +51,23 @@ class CategoryController extends CustomController {
         }
         
         $comment = new Comment();
-//        var_dump(Yii::$app->request->post());
-//        var_dump($comment->errors);
-//        exit();
+
         if ($comment->load(Yii::$app->request->post()))
         {
             $user = Users::findOne(Yii::$app->user->id);
 
             $comment->id_lesson = $lesson;
             $comment->username = $user->username;
-//            $comment->parent_id = (int)$comment->parent_id;
-
+            $comment->parent_id = (int)$comment->parent_id;
+            $comment->save();
+        
             /**
              * Проверка на взлом БД
              */
 
             $les = Comment::find()->where(['parent_id' => $comment->parent_id])->all();
+//             var_dump($les);
+//        exit();
             if (!$les)
             {
                 throw new NotFoundHttpException('Такого комментария нет.');

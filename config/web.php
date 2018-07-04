@@ -30,15 +30,7 @@ $config = [
 //            'placeHolderPath' => '@webroot/images/placeHolder.png', // if you want to get placeholder when image not exists, string will be processed by Yii::getAlias
 //            'imageCompressionQuality' => 100, // Optional. Default value is 85.
         ],
-        'debug' => [ // панель на хостинге 
-            'class' => 'yii\debug\Module', //
-            'allowedIPs' => ['127.0.0.1', '::1'], //
-            'panels' => [
-                'httpclient' => [
-                    'class' => 'yii\\httpclient\\debug\\HttpClientPanel',
-                ],
-            ],
-        ],
+        
     ],
     'components' => [
         'mailler' => [

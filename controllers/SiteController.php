@@ -4,7 +4,6 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
@@ -92,6 +91,7 @@ class SiteController extends CustomController
     {
         $this->view->title = 'Login';
         $this->layout = 'page';
+        $model = new Users();
         
         if (!Yii::$app->user->isGuest) {
             return $this->render('login', [
@@ -99,7 +99,7 @@ class SiteController extends CustomController
         ]);
         }
 
-        $model = new Users();
+//        $model = new Users();
         $model->scenario = 'login';
         
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
@@ -158,6 +158,7 @@ class SiteController extends CustomController
                     $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
                     $model->code = Yii::$app->getSecurity()->generateRandomString(10);
                     $model->active = 0;
+                    $model->advert = 0;
                     if($model->save())
                     {
                         //Назночаем Роль пользователя
@@ -241,7 +242,7 @@ class SiteController extends CustomController
         $this->view->title = 'Busness Offers';
         
         $model = new ContactForm();
-        CustomController::printr($model);
+//        CustomController::printr($model);
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
 

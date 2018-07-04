@@ -31,7 +31,7 @@ AppAssetAdmin::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => 'Администрирование',
-        'brandUrl' => Url::to(['']),
+        'brandUrl' => Url::to(['/admin/ ']), // оставляем пробел для перехода по ссылк и на ссаму себя
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],

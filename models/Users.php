@@ -26,11 +26,20 @@ class Users extends ActiveRecord implements IdentityInterface
     const ACTIVE_USER = 1;
 //    public $email;
 //    public $password;
+    public $image;
     public $rememberMe = true;
 
     private $_user = false;
 
-
+    public function behaviors()
+    {
+        return [
+            'image' => [
+                'class' => 'rico\yii2images\behaviors\ImageBehave',
+            ]
+        ];
+    }
+    
     /**
      * @inheritdoc
      */
@@ -46,13 +55,15 @@ class Users extends ActiveRecord implements IdentityInterface
     {
         return [
             [['email', 'username', 'password'], 'required', 'on' => 'form-registration'],
-            [['active'], 'integer'],
+            [['active', 'advert'], 'integer'],
             ['email', 'email'],
             [['email', 'username', 'password', 'autth_key', 'code'], 'string', 'max' => 255],
             [['auth_key', 'code', 'active', 'username', 'rememberMe'], 'safe', 'on' => 'login'],
             ['rememberMe', 'boolean', 'on' => 'login'],
             [['email', 'password'],'required', 'on' => 'login'],
-            [['auth_key', 'code'], 'safe', 'on' => 'form-registration'],
+            [['image'], 'file', 'extensions' => 'png, jpg'],
+            [['auth_key', 'code', 'advert'], 'safe', 'on' => 'form-registration'],
+            [['password'], 'required', 'on' => 'replacement'],
         ];
     }
 
@@ -66,7 +77,8 @@ class Users extends ActiveRecord implements IdentityInterface
             'email' => 'E-mail',
             'username' => 'Имя пользователя',
             'password' => 'Пароль',
-            'rememberMe' => 'Запомнить меня'
+            'rememberMe' => 'Запомнить меня',
+            'image' => 'Аватар',
         ];
     }
     
@@ -153,5 +165,27 @@ class Users extends ActiveRecord implements IdentityInterface
         }
 
         return $this->_user;
+    }
+    
+    /**
+     *
+     * Загружаем картинку
+     *
+     * @return bool
+     */
+    public function upload()
+    {
+        if ($this->validate())
+        {
+            $path = 'img/store' . $this->image->baseName . '.' . $this->image->extension;
+            $this->image->saveAs($path);
+            $this->attachImage($path, true);
+            @unlink($path);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

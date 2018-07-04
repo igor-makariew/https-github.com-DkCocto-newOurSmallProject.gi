@@ -26,5 +26,14 @@ class CustomController extends Controller {
             echo 'ERROR';
         }
     }
+    
+    protected  function setMeta ($title = null, $keywords = null, $description = null)
+    {
+        $this->view->title = $title; // Возвращаем title на страницу
+        $this->view->registerMetaTag(['name' => 'keywords', 'content' => $keywords]); // Возвращаем keywords на страницу
+        $this->view->registerMetaTag(['name' => 'description', 'content' => $description]); // Возвращаем description на страницу
+    }
 }
+
+
 ?>

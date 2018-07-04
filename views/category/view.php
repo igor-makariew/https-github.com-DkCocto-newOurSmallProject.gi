@@ -100,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-lg-5">
                 
                 <?php $form = ActiveForm::begin([
-//                    'method' => 'post',
+                    'method' => 'post',
 //                    'action' => ['category/view']
                 ]) ?>
 

@@ -72,6 +72,7 @@ class Lesson extends \yii\db\ActiveRecord
             'video' => 'Видео',
             'views' => 'Количество просмотров',
             'image' => 'Слайд',
+            'gallery' => 'Галерея',
         ];
     }
     

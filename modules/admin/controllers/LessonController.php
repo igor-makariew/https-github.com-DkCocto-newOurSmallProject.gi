@@ -6,7 +6,6 @@ use Yii;
 use app\modules\admin\models\Lesson;
 use app\modules\admin\models\Category;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
@@ -17,7 +16,7 @@ use app\controllers\CustomController;
 /**
  * LessonController implements the CRUD actions for Lesson model.
  */
-class LessonController extends Controller
+class LessonController extends CustomController
 {
     /**
      * {@inheritdoc}
